@@ -21,7 +21,7 @@ class ThreadRunner {
         val thread3 = thread { threadInfo["${Thread.currentThread().name}"] = "Выполняет вычисления 3" }
 
         // Дождитесь завершения потоков, чтобы они успели записать свои имена в Map
-        thread1.join()
+        thread1.join() // отдельное завершение потоков позволяет выполнять потоки одновременно
         thread2.join()
         thread3.join()
 
