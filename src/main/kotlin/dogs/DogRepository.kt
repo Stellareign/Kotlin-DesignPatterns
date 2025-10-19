@@ -12,14 +12,25 @@ class DogRepository private constructor() {
 
     private fun loadDogList(file: File): MutableList<Dog> = Json.decodeFromString(file.readText().trim())
 
+    /**
+     * позволяет получать доступ к полям приватного класса
+     */
     companion object { // для создания паттерна singleton
-        private var instance: DogRepository? = null
+        /**
+         * lateinit - отсроченная инициализация, если разработчик уверен, что переменная будет инициализирована
+         * чаще используется при библиотечных автоматических инъекциях зависимостей
+         */
+//        private lateinit var instance: DogRepository //
 
+        private var instance: DogRepository? = null // создание экземпляра через нуаллабельное значение переменной
         fun getInstanceDogRepository(password: String): DogRepository {
             val correctDogsPassword = File("dogPassword.txt").readText().trim()
             if (correctDogsPassword != password)
                 throw IllegalArgumentException("Неправильный пароль")
 
+//            if (!::instance.isInitialized) {
+//                instance = DogRepository()
+//            }
             if (instance == null) {
                 instance = DogRepository()
             }
