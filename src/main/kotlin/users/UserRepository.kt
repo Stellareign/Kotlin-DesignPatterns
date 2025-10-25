@@ -9,12 +9,24 @@ class UserRepository private constructor() {
 //        if (correctPassword != password) throw IllegalArgumentException("Неправильный пароль!")
 //    }
 
-    private val file = File("users.json")
-    private val _users: MutableList<User> = loadUsersProfiles(file)
+    private val usersFile = File("users.json")
+    private val _users: MutableList<User> = loadUsersProfiles(usersFile)
     val users
         get() = _users.toList()
 
     private fun loadUsersProfiles(file: File): MutableList<User> = Json.decodeFromString(file.readText().trim())
+
+    private fun generateId(): Int {
+        return users.maxOf { it.id } + 1
+    }
+
+   fun rewriteUserFile(users: List<User>) {
+        usersFile.writeText(Json.encodeToString(users))
+    }
+
+    fun generateUser(firstName: String, lastName: String, age: Int): User {
+        return User(generateId(), firstName, lastName, age)
+    }
 
     /**
      * companion object {} - для доступа свойствам приватного класса -> можно прописать условия доступа
@@ -49,5 +61,6 @@ class UserRepository private constructor() {
             }
             return instance!!
         }
+
     }
 }
