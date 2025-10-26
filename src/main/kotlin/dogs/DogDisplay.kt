@@ -2,7 +2,6 @@ package dogs
 
 import java.awt.Font
 import java.awt.Insets
-import java.awt.TextArea
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea

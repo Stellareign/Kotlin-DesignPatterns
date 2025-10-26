@@ -1,5 +1,6 @@
-package users
+package users.usersWithoutObserver
 
+import users.usersWithoutObserver.UserRepository
 import java.awt.Dimension
 import java.awt.Font
 import java.awt.Insets
@@ -7,7 +8,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 
-class Display {
+class UserDisplay {
     fun showWindow() {
         val textArea = JTextArea().apply {  // создание текстового поля
             isEditable = false // запрет на ввод текста в окне (или разрешение, если true)
@@ -34,7 +35,7 @@ class Display {
         /**
          * Запись в функциональном стиле
          */
-        UserRepository
+        UserRepository.Companion
             .getInstanceUserRepository("qwerty")
             .users.joinToString("\n") // преобразование в сроку с символом переноса
             .let { textArea.text = it }

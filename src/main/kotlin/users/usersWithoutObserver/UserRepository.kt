@@ -1,6 +1,7 @@
-package users
+package users.usersWithoutObserver
 
 import kotlinx.serialization.json.Json
+import users.User
 import java.io.File
 
 class UserRepository private constructor() {
@@ -14,14 +15,14 @@ class UserRepository private constructor() {
     val users
         get() = _users.toList()
 
-    private fun loadUsersProfiles(file: File): MutableList<User> = Json.decodeFromString(file.readText().trim())
+    private fun loadUsersProfiles(file: File): MutableList<User> = Json.Default.decodeFromString(file.readText().trim())
 
     private fun generateId(): Int {
         return users.maxOf { it.id } + 1
     }
 
    fun rewriteUserFile(users: List<User>) {
-        usersFile.writeText(Json.encodeToString(users))
+        usersFile.writeText(Json.Default.encodeToString(users))
     }
 
     fun generateUser(firstName: String, lastName: String, age: Int): User {
