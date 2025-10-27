@@ -1,5 +1,6 @@
-package dogs
+package dogs.dogWithoutObserver
 
+import dogs.Dog
 import kotlinx.serialization.json.Json
 import java.io.File
 
@@ -10,7 +11,7 @@ class DogRepository private constructor() {
     val dogs: List<Dog>
         get() = _dogs.toList()
 
-    private fun loadDogList(file: File): MutableList<Dog> = Json.decodeFromString(file.readText().trim())
+    private fun loadDogList(file: File): MutableList<Dog> = Json.Default.decodeFromString(file.readText().trim())
 
     /**
      * позволяет получать доступ к полям приватного класса

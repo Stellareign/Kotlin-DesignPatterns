@@ -1,5 +1,6 @@
-package dogs
+package dogs.dogWithoutObserver
 
+import dogs.dogWithoutObserver.DogRepository
 import java.awt.Font
 import java.awt.Insets
 import javax.swing.JFrame
@@ -21,7 +22,7 @@ class DogDisplay {
             isResizable = true
             contentPane.add(scroll)
         }
-        DogRepository
+        DogRepository.Companion
             .getInstanceDogRepository("qwertyu")
             .dogs.joinToString("\n")
             .let{textArea.text = it}

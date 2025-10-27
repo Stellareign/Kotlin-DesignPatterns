@@ -21,7 +21,7 @@ class UserRepository private constructor() {
         return users.maxOf { it.id } + 1
     }
 
-   fun rewriteUserFile(users: List<User>) {
+    fun rewriteUserFile(users: List<User>) {
         usersFile.writeText(Json.Default.encodeToString(users))
     }
 
@@ -60,7 +60,6 @@ class UserRepository private constructor() {
                 instance?.let { return it } // с использованием функционального стиля
                 return UserRepository().also { instance = it }
             }
-            return instance!!
         }
 
     }
