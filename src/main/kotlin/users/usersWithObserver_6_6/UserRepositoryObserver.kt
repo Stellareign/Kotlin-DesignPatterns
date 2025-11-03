@@ -1,5 +1,6 @@
 package users.usersWithObserver_6_6
 
+import Observer.Observer
 import kotlinx.serialization.json.Json
 import users.User
 import java.io.File
@@ -16,7 +17,7 @@ class UserRepositoryObserver private constructor() {
     /**
      * список подписчиков
      */
-    private val observers = mutableListOf<UserDisplayForObserver>()
+    private val observers = mutableListOf<Observer<List<User>>>()
 
     /**
      * Уведомление подписчиков
@@ -30,7 +31,7 @@ class UserRepositoryObserver private constructor() {
     /**
      *   Добавление подписчиков
      */
-    fun addObserver(observer: UserDisplayForObserver){
+    fun addObserver(observer: Observer<List<User>>){
         observers.add(observer)
         observer.onChanged(users)
     }

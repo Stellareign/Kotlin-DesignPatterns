@@ -1,5 +1,6 @@
 package dogs.dogWithObserver
 
+import Observer.Observer
 import dogs.Dog
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -7,16 +8,16 @@ import java.io.File
 class DogRepositoryWithObserver private constructor() {
     private val dogFile = File("dogs.json")
     private val _dogs: MutableList<Dog> =Json.Default.decodeFromString(dogFile.readText().trim())
-    private val dogObservers = mutableListOf<DogDisplayWithObserver>()
+    private val dogObservers = mutableListOf<Observer<List<Dog>>>()
 
     private fun notifyObserver() {
         for(observer in dogObservers){
-            observer.dogsOnChanged(dogs)
+            observer.onChanged(dogs)
         }
     }
-    fun addDogObserver(observer: DogDisplayWithObserver) {
+    fun addDogObserver(observer: Observer<List<Dog>>) {
         dogObservers.add(observer)
-        observer.dogsOnChanged(dogs)
+        observer.onChanged(dogs)
     }
 
     val dogs: List<Dog>
@@ -33,7 +34,7 @@ class DogRepositoryWithObserver private constructor() {
     }
 
     private fun generateDog(name: String, age: Int, breed: String, color: String, weight: Double): Dog {
-        val id = _dogs.maxByOrNull { it.id }?.id ?: 0
+        val id = _dogs.maxOf { it.id } + 1
         return Dog(id, name, age, breed, color, weight)
 
     }

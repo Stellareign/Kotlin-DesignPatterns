@@ -1,5 +1,6 @@
 package users.usersWithObserver_6_6
 
+import Observer.Observer
 import users.User
 import java.awt.Dimension
 import java.awt.Font
@@ -8,7 +9,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 
-class UserDisplayForObserver {
+class UserDisplayForObserver : Observer<List<User>> {
     /**
      * Настройка тестового содержания
      */
@@ -36,7 +37,8 @@ class UserDisplayForObserver {
     /**
      * Метод-мониторинг состояния списка для отображения в окне актуальных данных
      */
-    fun onChanged(users: List<User>) {
+
+     override fun onChanged(users: List<User>) {
         users.joinToString("\n") // преобразование в сроку с символом переноса
             .let { textArea.text = it }
     }
