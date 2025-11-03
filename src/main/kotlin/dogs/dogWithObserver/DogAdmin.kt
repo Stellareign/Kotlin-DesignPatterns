@@ -30,7 +30,6 @@ class DogAdmin {
             }
 
         }
-
     }
     fun addDog() {
         print("Введите имя собаки: ")
