@@ -1,4 +1,4 @@
-package usersWithObserver_6_6
+package users.usersWithObserver_6_6
 
 fun main() {
 

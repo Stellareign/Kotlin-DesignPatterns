@@ -43,6 +43,7 @@ class UserRepository private constructor() {
 //        private val instance: UserRepository = UserRepository()
         private val lock = Any()
         private var instance: UserRepository? = null // создание экземпляра через нуаллабельное значение переменной
+
         fun getInstanceUserRepository(password: String): UserRepository {
             val correctPassword = File("userPassword.txt").readText().trim()
             if (correctPassword != password) throw IllegalArgumentException("Неправильный пароль!")

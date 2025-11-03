@@ -1,8 +1,7 @@
-package usersWithObserver_6_6
+package users.usersWithObserver_6_6
 
 import kotlinx.serialization.json.Json
 import users.User
-import users.usersWithoutObserver.UserDisplay
 import java.io.File
 
 class UserRepositoryObserver private constructor() {
@@ -14,15 +13,23 @@ class UserRepositoryObserver private constructor() {
 
     private fun loadUsersProfiles(file: File): MutableList<User> = Json.decodeFromString(file.readText().trim())
 
-    private val observers = mutableListOf<UserDisplayForObserver>()
     /**
-     * ПЕРЕМЕННАЯ ДЛЯ АКТУАЛИЗАЦИИ СОСТОЯНИЯ ОКНА
+     * список подписчиков
+     */
+    private val observers = mutableListOf<UserDisplayForObserver>()
+
+    /**
+     * Уведомление подписчиков
      */
     fun notifyObserver() {
         for (observer in observers) {
             observer.onChanged(users)
         }
     }
+
+    /**
+     *   Добавление подписчиков
+     */
     fun addObserver(observer: UserDisplayForObserver){
         observers.add(observer)
         observer.onChanged(users)

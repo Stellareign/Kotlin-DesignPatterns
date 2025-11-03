@@ -1,4 +1,4 @@
-package usersWithObserver_6_6
+package users.usersWithObserver_6_6
 
 import users.User
 import java.awt.Dimension
@@ -7,7 +7,6 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
-import kotlin.concurrent.thread
 
 class UserDisplayForObserver {
     /**

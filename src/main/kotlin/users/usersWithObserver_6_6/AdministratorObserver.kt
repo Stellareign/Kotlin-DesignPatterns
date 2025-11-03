@@ -1,7 +1,6 @@
-package usersWithObserver_6_6
+package users.usersWithObserver_6_6
 
 import users.Operations
-import kotlin.system.exitProcess
 
 class AdministratorObserver {
     private val userRepo = UserRepositoryObserver.getInstanceUserRepository("qwerty")
