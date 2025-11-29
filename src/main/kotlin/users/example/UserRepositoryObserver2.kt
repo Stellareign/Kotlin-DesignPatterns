@@ -1,4 +1,4 @@
-package users.primer
+package users.example
 
 import Observer.Observer
 import kotlinx.serialization.json.Json
@@ -17,23 +17,23 @@ class UserRepositoryObserver2 private constructor() {
     /**
      * список подписчиков
      */
-    private val observers = mutableListOf<Observer<List<User>>>()
+    private val observers = mutableListOf<(List<User>) -> Unit>() // лямбда
 
     /**
      * Уведомление подписчиков
      */
     fun notifyObserver() {
         for (observer in observers) {
-            observer.onChanged(users)
+            observer(users)
         }
     }
 
     /**
      * Добавление подписчиков
      */
-    fun addObserver(observer: Observer<List<User>>) {
+    fun addObserver(observer: (List<User>) -> Unit) {
         observers.add(observer)
-        observer.onChanged(users)
+        observer(users)
     }
 
     private fun generateId(): Int {

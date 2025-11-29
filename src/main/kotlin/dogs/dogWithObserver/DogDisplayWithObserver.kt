@@ -1,8 +1,5 @@
 package dogs.dogWithObserver
 
-import Observer.Observer
-import dogs.Dog
-import dogs.dogWithoutObserver.DogRepository
 import java.awt.Font
 import java.awt.Insets
 import javax.swing.JFrame
@@ -32,11 +29,9 @@ class DogDisplayWithObserver {
             isResizable = true
             contentPane.add(scroll)
         }
-        DogRepositoryWithObserver.getInstanceDogRepository("qwertyu").addDogObserver(object : Observer<List<Dog>> {
-            override fun onChanged(dogs: List<Dog>) {
-                dogs.joinToString("\n")
-                    .let { textArea.text = it }
-            }
-        })
+        DogRepositoryWithObserver.getInstanceDogRepository("qwertyu").addOnDogsChangesListener { dogs -> // после создания функционального интерфейса можно заменить на лямбда-выражение
+            dogs.joinToString("\n")
+                .let { textArea.text = it }
+        }
     }
 }

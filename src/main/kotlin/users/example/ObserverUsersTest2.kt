@@ -1,8 +1,6 @@
-package users.primer
+package users.example
 
 import users.usersWithObserver_6_6.AdministratorObserver
-import users.usersWithObserver_6_6.UserDisplayForObserver
-import users.usersWithObserver_6_6.UserRepositoryObserver
 
 fun main() {
 

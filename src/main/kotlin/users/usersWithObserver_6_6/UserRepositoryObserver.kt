@@ -31,7 +31,7 @@ class UserRepositoryObserver private constructor() {
     /**
      *   Добавление подписчиков
      */
-    fun addObserver(observer: Observer<List<User>>){
+    fun addOnUsersChangedListener (observer: Observer<List<User>>){
         observers.add(observer)
         observer.onChanged(users)
     }

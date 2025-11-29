@@ -1,4 +1,4 @@
-package users.primer
+package users.example
 
 import Observer.Observer
 import users.User
@@ -9,7 +9,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 
-class UserDisplayForObserver2 : Observer<List<User>> {
+class UserDisplayOldest : Observer<List<User>> {
     /**
      * Настройка тестового содержания
      */
@@ -31,15 +31,15 @@ class UserDisplayForObserver2 : Observer<List<User>> {
             isResizable = false // запрет на изменение размера окна
             add(scrollPane) //добавление текстового поля внутрь окна, который можно скроллить
         }
-        UserRepositoryObserver2.Companion.getInstanceUserRepository("qwerty").addObserver(this) // подписка на обновление окна
+        UserRepositoryObserver2.getInstanceUserRepository("qwerty").addObserver{textArea.text = it.joinToString { "\n" }} // подписка на обновление окна
     }
 
     /**
      * Метод-мониторинг состояния списка для отображения в окне актуальных данных
      */
 
-     override fun onChanged(users: List<User>) {
-        users.joinToString("\n") // преобразование в сроку с символом переноса
+     override fun onChanged(newValue: List<User>) {
+        newValue.joinToString("\n") // преобразование в сроку с символом переноса
             .let { textArea.text = it }
     }
 }
