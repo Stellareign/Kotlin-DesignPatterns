@@ -1,39 +1,54 @@
 package users.usersWithObserver_6_6
 
+import Observer.Observable
 import Observer.Observer
 import kotlinx.serialization.json.Json
 import users.User
 import java.io.File
 
-class UserRepositoryObserver private constructor() {
+class UserRepositoryObserver private constructor() : Observable<List<User>> {
 
     private val usersFile = File("users.json")
     private val _users: MutableList<User> = loadUsersProfiles(usersFile)
-    val users
-        get() = _users.toList()
+//    val users
+//        get() = _users.toList()
 
     private fun loadUsersProfiles(file: File): MutableList<User> = Json.decodeFromString(file.readText().trim())
 
     /**
-     * список подписчиков
+     * Список подписчиков
      */
-    private val observers = mutableListOf<Observer<List<User>>>()
+    private val _observers = mutableListOf<Observer<List<User>>>()
+    override val observers
+        get() = _observers.toList()
+
+    override val currentValue: List<User>
+        get() = _users.toList()
+
+
 
     /**
      * Уведомление подписчиков
      */
-    fun notifyObserver() {
-        for (observer in observers) {
-            observer.onChanged(users)
-        }
+    override fun notifyObservers() {
+        super.notifyObservers()
     }
+//    fun notifyObserver() {
+//        for (observer in observers) {
+//            observer.onChanged(users)
+//        }
+//    }
 
     /**
      *   Добавление подписчиков
      */
-    fun addOnUsersChangedListener (observer: Observer<List<User>>){
-        observers.add(observer)
-        observer.onChanged(users)
+    override fun registerObserver(observer: Observer<List<User>>) {
+        _observers.add(observer)
+        observer.onChanged(currentValue)
+    }
+// оставляем оба метода
+    fun addOnUsersChangedListener(observer: Observer<List<User>>) {
+       registerObserver(observer)
     }
 //        var display: UserDisplayForObserver? = null // подписчик
 //        set(value) { // для вывода данных на экран при старте (в момент подписки)
@@ -41,8 +56,16 @@ class UserRepositoryObserver private constructor() {
 //            display?.onChanged(users)
 //    }
 
+    /**
+     * Удаление подписчиков
+     */
+
     private fun generateId(): Int {
-        return users.maxOf { it.id } + 1
+        return currentValue.maxOf { it.id } + 1
+    }
+
+    override fun unregisterObserver(observer: Observer<List<User>>) {
+       _observers.remove(observer)
     }
 
     fun rewriteUserFile() {
@@ -54,7 +77,7 @@ class UserRepositoryObserver private constructor() {
     }
 
     fun showAlUsers() {
-        users.forEach(::println)
+        currentValue.forEach(::println)
     }
 
     fun addUserToList() {
@@ -65,9 +88,9 @@ class UserRepositoryObserver private constructor() {
         print("Введите возраст (целое число): ")
         val age = readln().toInt()
         _users.add(generateUser(firstName, lastName, age))
-        users.forEach(::println)
+        currentValue.forEach(::println)
 //        display?.onChanged(users)
-        notifyObserver()
+        notifyObservers()
     }
 
     /**
@@ -77,9 +100,9 @@ class UserRepositoryObserver private constructor() {
         print("Введите ID пользователя, которого нужно удалить: ")
         val id = readln().toInt()
         _users.removeIf { it.id == id }
-        users.forEach(::println)
+        currentValue.forEach(::println)
 //        display?.onChanged(users)
-        notifyObserver()
+        notifyObservers()
     }
 
 

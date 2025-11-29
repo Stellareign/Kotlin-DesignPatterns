@@ -8,6 +8,7 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
+import kotlin.concurrent.thread
 
 class UserDisplayForObserver : Observer<List<User>> {
     /**
@@ -32,21 +33,32 @@ class UserDisplayForObserver : Observer<List<User>> {
             add(scrollPane) //добавление текстового поля внутрь окна, который можно скроллить
         }
 //        UserRepositoryObserver.getInstanceUserRepository("qwerty").addOnUsersChangedListener(this) // подписка на обновление окна
+// для примера удаления обзервера:
+//        val observer: (List <User>) -> Unit = {
+//            textArea.text = it.joinToString("\n")
+//        }
         /**
          * Замена на лямбду функционального интерфейса:
          */
+        // пример удаления обзевера
+//        UserRepositoryObserver.getInstanceUserRepository("qwerty").addOnUsersChangedListener(observer)
+//        thread{
+//            Thread.sleep(10000)
+//            UserRepositoryObserver.getInstanceUserRepository("qwerty").unregisterObserver(observer)
+//        }
         UserRepositoryObserver.getInstanceUserRepository("qwerty").addOnUsersChangedListener { users ->
             users.joinToString("\n") // преобразование в сроку с символом переноса
                 .let { textArea.text = it }
         }
+
     }
 
-        /**
-         * Метод-мониторинг состояния списка для отображения в окне актуальных данных
-         */
+    /**
+     * Метод-мониторинг состояния списка для отображения в окне актуальных данных
+     */
 
-        override fun onChanged(newValue: List<User>) {
-            newValue.joinToString("\n") // преобразование в сроку с символом переноса
-                .let { textArea.text = it }
-        }
+    override fun onChanged(newValue: List<User>) {
+        newValue.joinToString("\n") // преобразование в сроку с символом переноса
+            .let { textArea.text = it }
     }
+}

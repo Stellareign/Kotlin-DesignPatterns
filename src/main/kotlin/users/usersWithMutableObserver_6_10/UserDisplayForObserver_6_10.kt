@@ -1,4 +1,4 @@
-package users.example
+package users.usersWithMutableObserver_6_10
 
 import Observer.Observer
 import users.User
@@ -9,7 +9,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 
-class UserDisplayOldest : Observer<List<User>> {
+class UserDisplayForObserver_6_10 : Observer<List<User>> {
     /**
      * Настройка тестового содержания
      */
@@ -31,9 +31,13 @@ class UserDisplayOldest : Observer<List<User>> {
             isResizable = false // запрет на изменение размера окна
             add(scrollPane) //добавление текстового поля внутрь окна, который можно скроллить
         }
-        UserRepositoryObserver2.getInstanceUserRepository("qwerty").addObserver {
-            textArea.text =
-                "Самый старший пользователь ${it.maxBy { user -> user.age }} \n"  // подписка на обновление окна
+
+        /**
+         * Замена на лямбду функционального интерфейса:
+         */
+        UserRepositoryObserver_6_10.getInstanceUserRepository("qwerty").users.registerObserver { users ->
+            users.joinToString("\n") // преобразование в сроку с символом переноса
+                .let { textArea.text = it }
         }
     }
 
