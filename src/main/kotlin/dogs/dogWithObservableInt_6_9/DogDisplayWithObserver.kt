@@ -24,7 +24,7 @@ class DogDisplayWithObserver {
             isResizable = true
             contentPane.add(scroll)
         }
-        DogRepositoryWithObserver.getInstanceDogRepository("qwertyu").addOnDogsChangesListener { dogs -> // после создания функционального интерфейса можно заменить на лямбда-выражение
+        DogRepositoryWithObserver.getInstanceDogRepository("qwertyu").addOnDogsChangesListener { dogs ->
             dogs.joinToString("\n")
                 .let { textArea.text = it }
         }

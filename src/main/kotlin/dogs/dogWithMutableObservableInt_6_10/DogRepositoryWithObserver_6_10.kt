@@ -1,6 +1,7 @@
 package dogs.dogWithMutableObservableInt_6_10
 
-import Observer.MutableObserver
+
+import MutableObserver
 import dogs.Dog
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -12,10 +13,9 @@ class DogRepositoryWithObserver_6_10 private constructor() {
     val dogs = MutableObserver(_dogs.toList())
 
 
-
-       fun addDogToList(name: String, age: Int, breed: String, color: String, weight: Double) {
+    fun addDogToList(name: String, age: Int, breed: String, color: String, weight: Double) {
         _dogs.add(generateDog(name, age, breed, color, weight))
-           dogs.currentValue = _dogs.toList()
+        dogs.currentValue = _dogs.toList()
     }
 
     fun deleteDogFromList(id: Int) {

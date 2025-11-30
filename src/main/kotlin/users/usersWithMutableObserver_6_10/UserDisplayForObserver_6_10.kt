@@ -1,6 +1,7 @@
 package users.usersWithMutableObserver_6_10
 
-import Observer.Observer
+
+import Observers.Observer
 import users.User
 import java.awt.Dimension
 import java.awt.Font

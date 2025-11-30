@@ -1,7 +1,8 @@
 package users.usersWithObserver_6_6
 
 import Observer.Observable
-import Observer.Observer
+import Observers.Observer
+
 import kotlinx.serialization.json.Json
 import users.User
 import java.io.File

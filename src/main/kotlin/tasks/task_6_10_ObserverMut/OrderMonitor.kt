@@ -1,6 +1,6 @@
 package tasks.task_6_10_ObserverMut
 
-import tasks.task_6_10_ObserverMut.auxiliaryClasses.DataRepository
+import tasks.task_6_10_ObserverMut.DataRepository
 import kotlin.concurrent.thread
 
 /**

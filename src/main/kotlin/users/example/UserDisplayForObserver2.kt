@@ -1,6 +1,7 @@
 package users.example
 
-import Observer.Observer
+
+import tasks.task_6_10_ObserverMut.observers.Observer
 import users.User
 import java.awt.Dimension
 import java.awt.Font

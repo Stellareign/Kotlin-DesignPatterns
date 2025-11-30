@@ -1,6 +1,6 @@
 package users.usersWithObserver_6_6
 
-import Observer.Observer
+import Observers.Observer
 import users.User
 import java.awt.Dimension
 import java.awt.Font
@@ -8,7 +8,7 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
-import kotlin.concurrent.thread
+
 
 class UserDisplayForObserver : Observer<List<User>> {
     /**

@@ -1,6 +1,6 @@
 package dogs.dogWithObserver
 
-import Observer.Observer
+import Observers.Observer
 import dogs.Dog
 import kotlinx.serialization.json.Json
 import java.io.File

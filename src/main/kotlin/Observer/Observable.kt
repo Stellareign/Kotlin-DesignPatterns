@@ -1,5 +1,7 @@
 package Observer
 
+import Observers.Observer
+
 /**
  * Интерфейс наблюдаемого объекта
  */

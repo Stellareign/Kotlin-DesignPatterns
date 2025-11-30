@@ -1,6 +1,6 @@
 package users.usersWithMutableObserver_6_10
 
-import Observer.MutableObserver
+import MutableObserver
 import kotlinx.serialization.json.Json
 import users.User
 import java.io.File

@@ -1,9 +1,9 @@
-import tasks.task_6_10_ObserverMut.auxiliaryClasses.DataRepository
-import tasks.task_6_10_ObserverMut.DataUpdater
+import tasks.task_6_10_ObserverMut.DataRepository
+//import tasks.task_6_10_ObserverMut.auxiliaryClasses.DataUpdater
 
 fun main() {
     // Запуск обновления данных
-    DataUpdater(DataRepository)
+//    DataUpdater(DataRepository)
 
     // Подписка на обновления данных пользователя
     DataRepository.userData.registerObserver { newValue ->

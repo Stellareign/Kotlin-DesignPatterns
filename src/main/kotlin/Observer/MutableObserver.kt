@@ -1,4 +1,5 @@
-package Observer
+import tasks.task_6_10_ObserverMut.observers.Observable
+import tasks.task_6_10_ObserverMut.observers.Observer
 
 class MutableObserver<T> (initialValue : T): Observable<T> {
     private val _observers = mutableSetOf<Observer<T>>()
