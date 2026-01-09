@@ -1,4 +1,5 @@
-package users.usersWithMutableObserver_6_10
+package users.`6_11_usersWithMutableObserverBackingField`
+
 
 import Observers.Observer
 import users.User
@@ -9,7 +10,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 
-class UserDisplayOldest_6_10 : Observer<List<User>> {
+class UserDisplayForObserver_6_11 : Observer<List<User>> {
     /**
      * Настройка тестового содержания
      */
@@ -27,13 +28,17 @@ class UserDisplayOldest_6_10 : Observer<List<User>> {
         val scrollPane = JScrollPane(textArea) // компонент для скроллинга текста, выходящего за границы экрана
         JFrame().apply { //создание и настройка окна
             isVisible = true
-            size = Dimension(1000, 600)
+            size = Dimension(600, 600)
             isResizable = false // запрет на изменение размера окна
             add(scrollPane) //добавление текстового поля внутрь окна, который можно скроллить
         }
-        UserRepositoryObserver_6_10.getInstanceUserRepository("qwerty").oldestUser.registerObserver {
-            textArea.text =
-                "Самый старший пользователь $it} \n"  // подписка на обновление окна
+
+        /**
+         * Замена на лямбду функционального интерфейса:
+         */
+        UserRepoObserver_6_11.getInstanceUserRepository("qwerty").users.registerObserver { users ->
+            users.joinToString("\n") // преобразование в сроку с символом переноса
+                .let { textArea.text = it }
         }
     }
 

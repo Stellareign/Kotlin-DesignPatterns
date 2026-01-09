@@ -1,4 +1,4 @@
-package users.usersWithMutableObserverBackingField_6_11
+package users.`6_11_usersWithMutableObserverBackingField`
 
 import MutableObservable
 import Observer.Observable

@@ -1,4 +1,4 @@
-package users.usersWithMutableObserverBackingField_6_11
+package users.`6_12_usersCommandAndBlocking`
 
 
 import Observers.Observer
@@ -10,7 +10,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 
-class UserDisplayForObserver_6_11 : Observer<List<User>> {
+class UserDisplayForObserver_6_12 : Observer<List<User>> {
     /**
      * Настройка тестового содержания
      */
@@ -36,7 +36,7 @@ class UserDisplayForObserver_6_11 : Observer<List<User>> {
         /**
          * Замена на лямбду функционального интерфейса:
          */
-        UserRepoObserver_6_11.getInstanceUserRepository("qwerty").users.registerObserver { users ->
+        UserRepoObserver_6_12.getInstanceUserRepository("qwerty").users.registerObserver { users ->
             users.joinToString("\n") // преобразование в сроку с символом переноса
                 .let { textArea.text = it }
         }

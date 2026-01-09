@@ -1,9 +1,10 @@
-package users.usersWithMutableObserver_6_10
 
+
+import users.`6_12_usersCommandAndBlocking`.UserRepoObserver_6_12
 import users.Operations
 
-class AdministratorObserver_6_10 {
-    private val userRepo = UserRepositoryObserver_6_10.getInstanceUserRepository("qwerty")
+class AdministratorObserver_6_12 {
+    private val userRepo = UserRepoObserver_6_12.getInstanceUserRepository("qwerty")
     private val operations = Operations.entries
 
     /**
@@ -17,20 +18,22 @@ class AdministratorObserver_6_10 {
     fun work() {
 
         while (true) {
+
             println("Введите номер команды: ")
             punctuations()
             val commandIndex = readln().toInt()
             val command = operations[commandIndex]
-            when (command) {
-                Operations.EXIT -> {
-                    userRepo.rewriteUserFile()
-                    break
+
+                when (command) {
+                    Operations.EXIT -> {
+                        userRepo.rewriteUserFile()
+                        break
+                    }
+                    Operations.ADD_USER -> userRepo.addUserToList()
+                    Operations.DELETE_USER -> userRepo.deleteUserFromList()
+                    Operations.SHOW_USER_LIST -> userRepo.showAlUsers()
                 }
 
-                Operations.ADD_USER -> userRepo.addUserToList()
-                Operations.DELETE_USER -> userRepo.deleteUserFromList()
-                Operations.SHOW_USER_LIST -> userRepo.showAlUsers()
-            }
         }
     }
 
