@@ -1,41 +1,44 @@
-package dogs.dogWithMutableObservableInt_6_10
+package dogs.dogWithMutableObservableInt_6_11
 
 
 import MutableObservable
+import Observer.Observable
 import dogs.Dog
 import kotlinx.serialization.json.Json
 import java.io.File
 
 
-class DogRepositoryWithObserver_6_10 private constructor() {
+class DogRepoObserver_6_11 private constructor() {
     private val dogFile = File("dogs.json")
-    private val _dogs: MutableList<Dog> = Json.Default.decodeFromString(dogFile.readText().trim())
+    private val dogsList: MutableList<Dog> = Json.Default.decodeFromString(dogFile.readText().trim())
+    private val _dogs : MutableObservable<List<Dog>> = MutableObservable(dogsList.toList())
 
-    val dogs = MutableObservable(_dogs.toList())
+    val dogs : Observable<List<Dog>>
+    get() = _dogs
 
 
     fun addDogToList(name: String, age: Int, breed: String, color: String, weight: Double) {
-        _dogs.add(generateDog(name, age, breed, color, weight))
-        dogs.currentValue = _dogs.toList()
+        dogsList.add(generateDog(name, age, breed, color, weight))
+        _dogs.currentValue = dogsList.toList()
     }
 
     fun deleteDogFromList(id: Int) {
-        _dogs.removeIf { id == it.id }
-        dogs.currentValue = _dogs.toList()
+        dogsList.removeIf { id == it.id }
+        _dogs.currentValue = dogsList.toList()
     }
 
     private fun generateDog(name: String, age: Int, breed: String, color: String, weight: Double): Dog {
-        val id = _dogs.maxOf { it.id } + 1
+        val id = dogsList.maxOf { it.id } + 1
         return Dog(id, name, age, breed, color, weight)
 
     }
 
     fun rewriteDogFile() {
-        dogFile.writeText(Json.encodeToString(dogs.currentValue))
+        dogFile.writeText(Json.encodeToString(_dogs.currentValue))
     }
 
     fun showAllDogs() {
-        dogs.currentValue.forEach(::println)
+        _dogs.currentValue.forEach(::println)
     }
 
     /**
@@ -44,10 +47,10 @@ class DogRepositoryWithObserver_6_10 private constructor() {
     companion object { // для создания паттерна singleton
 
         private val lock = Any() // мьютер
-        private var instance: DogRepositoryWithObserver_6_10? =
+        private var instance: DogRepoObserver_6_11? =
             null // создание экземпляра через нуаллабельное значение переменной
 
-        fun getInstanceDogRepository(password: String): DogRepositoryWithObserver_6_10 {
+        fun getInstanceDogRepository(password: String): DogRepoObserver_6_11 {
             val correctDogsPassword = File("dogPassword.txt").readText().trim()
             if (correctDogsPassword != password)
                 throw IllegalArgumentException("Неправильный пароль")
@@ -56,7 +59,7 @@ class DogRepositoryWithObserver_6_10 private constructor() {
 
             synchronized(lock) {
                 instance?.let { return it }
-                return DogRepositoryWithObserver_6_10().also { instance = it }
+                return DogRepoObserver_6_11().also { instance = it }
             }
         }
     }
