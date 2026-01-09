@@ -7,7 +7,6 @@ import dogs.Dog
 import kotlinx.serialization.json.Json
 import java.io.File
 
-
 class DogRepoObserver_6_11 private constructor() {
     private val dogFile = File("dogs.json")
     private val dogsList: MutableList<Dog> = Json.Default.decodeFromString(dogFile.readText().trim())
