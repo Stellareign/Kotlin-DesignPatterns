@@ -10,6 +10,7 @@ import java.io.File
 class DogRepositoryWithObserver_6_10 private constructor() {
     private val dogFile = File("dogs.json")
     private val _dogs: MutableList<Dog> = Json.Default.decodeFromString(dogFile.readText().trim())
+
     val dogs = MutableObserver(_dogs.toList())
 
 

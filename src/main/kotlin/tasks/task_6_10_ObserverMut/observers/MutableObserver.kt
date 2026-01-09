@@ -1,5 +1,7 @@
 package tasks.task_6_10_ObserverMut.observers
 
+import kotlin.collections.mutableSetOf
+
 class MutableObserver<T>(initialValue: T) : Observable<T> {
 
     override var currentValue: T = initialValue
@@ -7,11 +9,11 @@ class MutableObserver<T>(initialValue: T) : Observable<T> {
             field = value
             notifyObservers()
         }
-    private var _observers: MutableList<Observer<T>> = mutableListOf()
+
+    private var _observers = mutableSetOf<Observer<T>>()
 
     override val observers
         get() = _observers.toList()
-
 
     override fun registerObserver(observer: Observer<T>) {
         _observers.add(observer)
@@ -19,8 +21,7 @@ class MutableObserver<T>(initialValue: T) : Observable<T> {
     }
 
     override fun unregisterObserver(observer: Observer<T>) {
-       _observers.remove(observer)
-        observer.onChanged(currentValue)
+        _observers.remove(observer)
     }
 
     override fun notifyObservers() {

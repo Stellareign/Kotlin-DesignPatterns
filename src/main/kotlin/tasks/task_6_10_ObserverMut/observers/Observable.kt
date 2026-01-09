@@ -4,8 +4,8 @@ package tasks.task_6_10_ObserverMut.observers
 
 interface Observable<T> {
     val currentValue: T
-    val observers: List<tasks.task_6_10_ObserverMut.observers.Observer<T>>
-
+    val observers: List<Observer<T>>
+    
     fun registerObserver(observer: Observer<T>)
 
     fun unregisterObserver(observer: Observer<T>)
