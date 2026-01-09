@@ -2,8 +2,6 @@ package tasks.task_6_10_ObserverMut
 
 import tasks.task_6_10_ObserverMut.observers.MutableObserver
 
-
-
 // Репозиторий данных
 object DataRepository {
     var _userData: String = "User_Initial"
